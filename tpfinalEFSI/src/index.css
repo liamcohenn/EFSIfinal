@@ -63,6 +63,7 @@ body{
 .btn.ghost{ background:transparent; }
 .btn:disabled{ opacity:.6; cursor:not-allowed; }
 
+
 .helper{ color:var(--muted); font-size:.92rem; }
 
 /* Tema oscuro toggle simple usando clase en <html> */
