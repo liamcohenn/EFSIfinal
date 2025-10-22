@@ -1,11 +1,20 @@
+import { useNavigate } from "react-router-dom";
+import { useMovimientos } from "../context/MovimientosContext";
+import MovimientoForm from "../components/movimientoForm";
+
 export default function Nuevo(){
-  // Semana 2: acá va el formulario (Formik/Yup o React Hook Form)
+  const { addMovimiento } = useMovimientos();
+  const navigate = useNavigate();
+
+  const handleSubmit = (values, actions) => {
+    addMovimiento(values);
+    actions.setSubmitting(false);
+    navigate("/");
+  };
+
   return (
-    <section className="card">
-      <h2>Nuevo</h2>
-      <p className="helper">
-        Esta vista se implementa en la Semana 2 (formulario con validaciones).
-      </p>
+    <section>
+      <MovimientoForm submitLabel="Crear movimiento" onSubmit={handleSubmit} />
     </section>
-  )
+  );
 }
