@@ -1,11 +1,20 @@
-export default function Resumen(){
-  // Semana 3: Totales + gráficos (Recharts/Chart.js)
+import { useMovimientos } from "../context/MovimientosContext";
+import { gastosPorCategoria, evolucionMensual, calcularTotales } from "../utils/estadisticas";
+import TarjetasResumen from "../components/TarjetasResumen";
+import GraficoGastosPorCategoria from "../components/GraficoGastosPorCategoria";
+import GraficoEvolucionMensual from "../components/GraficoEvolucionMensual";
+
+export default function ResumenGeneral(){
+  const { movimientos } = useMovimientos();
+  const tot = calcularTotales(movimientos);
+  const porCat = gastosPorCategoria(movimientos);
+  const evo = evolucionMensual(movimientos);
+
   return (
-    <section className="card">
-      <h2>Resumen</h2>
-      <p className="helper">
-        En Semana 3 se agregan totales y gráficos (circular por categoría y evolución mensual).
-      </p>
+    <section style={{display:'grid', gap:12}}>
+      <TarjetasResumen ingresos={tot.ingresos} gastos={tot.gastos} balance={tot.balance} />
+      <GraficoGastosPorCategoria datos={porCat} />
+      <GraficoEvolucionMensual datos={evo} />
     </section>
-  )
+  );
 }
