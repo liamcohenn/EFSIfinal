@@ -7,7 +7,6 @@ export default function Header(){
     <header className="header">
       <h1 className="title">Mi Presupuesto</h1>
       <div style={{display:'flex', alignItems:'center', gap:10}}>
-        <span className="badge">Entrega Semana 1</span>
         <button className="btn" onClick={toggleDark}>
           {dark ? '☀️ Claro' : '🌙 Oscuro'}
         </button>

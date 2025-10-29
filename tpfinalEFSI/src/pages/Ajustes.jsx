@@ -1,10 +1,10 @@
 import { useMovimientos } from '../context/MovimientosContext'
 
 export default function Ajustes(){
-  const { resetDatos, dark, toggleDark } = useMovimientos()
+  const { resetDatos, clearDatos, dark, toggleDark } = useMovimientos()
 
   return (
-    <section className="card">
+    <section className="card" style={{display:'grid', gap:12}}>
       <h2>Ajustes</h2>
 
       <div className="row">
@@ -19,12 +19,12 @@ export default function Ajustes(){
 
       <div className="row">
         <div>
-          <div style={{fontWeight:600}}>Reiniciar datos</div>
-          <div className="helper">Vuelve a cargar los datos de ejemplo</div>
+          <div style={{fontWeight:600}}>Vaciar datos</div>
+          <div className="helper">Elimina todos los movimientos guardados</div>
         </div>
-        <button className="btn warning" onClick={resetDatos}>
-          Restablecer mock
-        </button>
+        <button className="btn warning" onClick={()=>{
+          if (confirm("¿Vaciar todos los datos? Esta acción no se puede deshacer.")) clearDatos()
+        }}>Vaciar</button>
       </div>
     </section>
   )

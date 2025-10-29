@@ -11,23 +11,25 @@ function formatCurrency(n){
 export default function MovimientoItem({ m, onDelete }){
   return (
     <div className="item">
-      <div>
-        <div style={{fontWeight:600}}>{m.descripcion}</div>
-        <div className="helper">{m.categoria}</div>
+      {/* Col 1: Descripción + categoría */}
+      <div className="item-info">
+        <div className="item-title">{m.descripcion}</div>
+        <div className="item-sub">{m.categoria}</div>
       </div>
 
+      {/* Col 2: Tipo */}
       <div className={`tipo ${m.tipo.toLowerCase()}`}>{m.tipo}</div>
 
-      <div style={{textAlign:'right', fontVariantNumeric:'tabular-nums'}}>
-        {formatCurrency(m.monto)}
-      </div>
+      {/* Col 3: Monto (derecha) */}
+      <div className="item-monto">{formatCurrency(m.monto)}</div>
 
-      <div style={{display:'flex', gap:8, justifyContent:'flex-end', alignItems:'center'}}>
-        <div className="helper" style={{textAlign:'right'}}>
-          {new Date(m.fecha).toLocaleDateString('es-AR')}
-        </div>
-        <Link to={`/editar/${m.id}`} className="btn">Editar</Link>
-        <button className="btn warning" onClick={() => onDelete?.(m.id)}>Eliminar</button>
+      {/* Col 4: Fecha (separada del monto) */}
+      <div className="item-fecha">{new Date(m.fecha).toLocaleDateString('es-AR')}</div>
+
+      {/* Col 5: Acciones */}
+      <div className="item-actions">
+        <Link to={`/editar/${m.id}`} className="btn ghost">Editar</Link>
+        <button className="btn danger" onClick={() => onDelete?.(m.id)}>Eliminar</button>
       </div>
     </div>
   )
