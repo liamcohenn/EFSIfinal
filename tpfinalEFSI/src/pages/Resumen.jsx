@@ -1,20 +1,20 @@
 import { useMovimientos } from "../context/MovimientosContext";
-import { gastosPorCategoria, evolucionMensual, totales } from "../utils/aggregations";
-import SummaryCards from "../components/SummaryCards";
-import ChartGastosPorCategoria from "../components/ChartGastosPorCategoria";
-import ChartEvolucionMensual from "../components/ChartEvolucionMensual";
+import { gastosPorCategoria, evolucionMensual, calcularTotales } from "../utils/estadisticas";
+import TarjetasResumen from "../components/TarjetasResumen";
+import GraficoGastosPorCategoria from "../components/GraficoGastosPorCategoria";
+import GraficoEvolucionMensual from "../components/GraficoEvolucionMensual";
 
-export default function Resumen(){
+export default function ResumenGeneral(){
   const { movimientos } = useMovimientos();
-  const t = totales(movimientos);
+  const tot = calcularTotales(movimientos);
   const porCat = gastosPorCategoria(movimientos);
   const evo = evolucionMensual(movimientos);
 
   return (
     <section style={{display:'grid', gap:12}}>
-      <SummaryCards ingresos={t.ingresos} gastos={t.gastos} balance={t.balance} />
-      <ChartGastosPorCategoria data={porCat} />
-      <ChartEvolucionMensual data={evo} />
+      <TarjetasResumen ingresos={tot.ingresos} gastos={tot.gastos} balance={tot.balance} />
+      <GraficoGastosPorCategoria datos={porCat} />
+      <GraficoEvolucionMensual datos={evo} />
     </section>
   );
 }

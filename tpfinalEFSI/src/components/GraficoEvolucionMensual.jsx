@@ -1,7 +1,7 @@
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line, ComposedChart } from "recharts";
 
-export default function ChartEvolucionMensual({ data }) {
-  if (!data || data.length === 0) {
+export default function GraficoEvolucionMensual({ datos }) {
+  if (!datos || datos.length === 0) {
     return <div className="card helper">No hay datos mensuales para graficar.</div>;
   }
   return (
@@ -9,9 +9,9 @@ export default function ChartEvolucionMensual({ data }) {
       <h3 style={{marginTop:0}}>Evolución mensual</h3>
       <div style={{width:'100%', height:320}}>
         <ResponsiveContainer>
-          <ComposedChart data={data}>
+          <ComposedChart data={datos}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <XAxis dataKey="mes" />
             <YAxis />
             <Tooltip />
             <Legend />
