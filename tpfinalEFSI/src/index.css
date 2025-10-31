@@ -1,127 +1,230 @@
+/* Claro */
 :root{
-  /* LIGHT THEME (claro) */
-  --bg: #ffffff;
-  --text: #111827;          /* casi negro */
-  --muted: #6b7280;         /* gris medio */
-  --panel: #ffffff;         /* tarjetas/fondos de panel */
-  --surface: #f8fafc;       /* superficies suaves (items, botones ghost) */
-  --border: #e5e7eb;        /* gris claro */
-  --primary: #7c3aed;
-  --primary-100: #efe7ff;   /* para badge/fondos suaves */
-  --ok: #16a34a;
-  --warn:#f59e0b;
-  --info:#2563eb;
-  --danger:#ef4444;
+  --blanco: #ffffff;
+  --negro: #111111;
+  --rojo: #e30613;       /* rojo River */
+  --rojo-osc: #b80d14;
+  --gris: #6b7280;
+  --gris-claro: #e9ecef;
+  --borde: #e5e7eb;
+
+  --bg: var(--blanco);
+  --panel: #ffffff;
+  --surface: #fafafa;
+  --text: var(--negro);
+  --muted: var(--gris);
+  --shadow: 0 8px 28px rgba(0,0,0,.06);
+
+  --ok: #15a34a;
+  --danger: var(--rojo);
 }
 
-/* DARK THEME (oscuro) */
+/* Oscuro (camiseta alternativa: negro con vivos rojos) */
 html.dark{
-  --bg: #000000;
-  --text: #e5eef7;
-  --muted: #9aa4b2;
-  --panel: #0b0f14;
-  --surface: #0f1524;
-  --border: #1f2a3a;
-  --primary: #7c3aed;
-  --primary-100: rgba(124,58,237,.15);
+  --bg: #0b0b0b;
+  --panel: #121212;
+  --surface: #161616;
+  --text: #f6f6f6;
+  --muted: #b3b3b3;
+  --borde: #262626;
+  --shadow: 0 10px 28px rgba(0,0,0,.45);
+
+  --rojo: #ff2e3a;
+  --rojo-osc: #d61f2a;
+  --gris-claro: #1c1c1c;
+
+  --ok: #22c55e;
+  --danger: var(--rojo);
 }
 
+/* ===== Base ===== */
 *{ box-sizing:border-box; }
 html,body,#root{ height:100%; }
-
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
   background: var(--bg);
-  color:var(--text);
-}
-
-.container{ max-width:980px; margin:16px auto; padding:0 12px; }
-
-/* HEADER */
-.header{
-  padding:20px 12px;
-  border-bottom:1px solid var(--border);
-  display:flex; align-items:center; justify-content:space-between;
-  background: var(--panel);
-}
-
-.title{ margin:0; font-weight:700; letter-spacing:.3px; color: var(--text); }
-
-.badge{
-  background: var(--primary-100);
   color: var(--text);
-  border:1px solid color-mix(in oklab, var(--primary), #fff 70%);
-  padding:4px 8px; border-radius:999px; font-size:.8rem;
+}
+.container{ max-width:1040px; margin:20px auto; padding:0 16px; }
+.helper{ color:var(--muted); font-size:.92rem; }
+
+/* ===== Header con franja diagonal ===== */
+.header{
+  position: sticky; top:0; z-index:15;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 20px;
+  background: var(--panel);
+  border-bottom: 2px solid var(--rojo);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.header::before{
+  content:"";
+  position:absolute; inset:-60% -40% auto auto;
+  width:180%; height:140%;
+  background: linear-gradient(135deg, transparent 40%, color-mix(in oklab, var(--rojo) 70%, #fff) 41%, var(--rojo) 50%, transparent 52%);
+  opacity:.10; pointer-events:none;
+  transform: rotate(-2deg);
+}
+.title{ margin:0; font-weight:900; letter-spacing:.3px; }
+
+/* Badge semana */
+.badge{
+  background: color-mix(in oklab, var(--rojo) 12%, #fff);
+  color: var(--text);
+  border:1px solid color-mix(in oklab, var(--rojo) 55%, var(--borde));
+  padding:4px 10px; border-radius:999px; font-size:.8rem; font-weight:700;
 }
 
-/* NAVBAR */
+/* ===== Nav ===== */
 .nav{
   display:flex; gap:10px; align-items:center;
-  padding:10px 12px;
-  border-bottom:1px solid var(--border);
-  background: var(--panel);
+  padding:10px 20px; background: var(--panel);
+  border-bottom: 1px solid var(--borde);
 }
 .nav a{
   text-decoration:none; color:var(--muted);
-  padding:8px 10px; border-radius:8px; border:1px solid transparent;
+  padding:8px 12px; border-radius:12px;
+  border:1px solid transparent;
+  transition: .15s ease;
 }
+.nav a:hover{ color: var(--text); }
 .nav a.active{
-  color:var(--text);
-  border-color:var(--border);
-  background: var(--surface);
+  color: var(--text);
+  border-color: var(--rojo);
+  background: color-mix(in oklab, var(--rojo) 8%, var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--rojo) 25%, transparent);
 }
 
-/* CARDS / LISTAS */
+/* ===== Tarjetas / paneles ===== */
 .card{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:14px; padding:14px 16px;
+  background: var(--panel);
+  border:1px solid var(--borde);
+  border-radius:16px;
+  padding:16px;
+  box-shadow: var(--shadow);
 }
+.row{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
 
+/* ===== Controles ===== */
+.btn{
+  appearance:none; cursor:pointer; user-select:none;
+  border:1px solid var(--borde);
+  background: var(--surface);
+  color: var(--text);
+  border-radius:12px;
+  padding:9px 12px; font-weight:700;
+  transition: transform .06s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn.primary{
+  background: color-mix(in oklab, var(--rojo) 10%, var(--surface));
+  border-color: color-mix(in oklab, var(--rojo) 45%, var(--borde));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--rojo) 25%, transparent);
+}
+.btn.danger{
+  background: color-mix(in oklab, var(--danger) 14%, var(--surface));
+  border-color: color-mix(in oklab, var(--danger) 50%, var(--borde));
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--danger) 25%, transparent);
+}
+.btn.ghost{ background: transparent; }
+
+input.btn, select.btn{ min-height: 40px; outline:none; }
+
+/* ===== KPIs ===== */
+.kpi-ingreso{ color:#16a34a; }
+.kpi-gasto{ color:var(--danger); }
+
+/* ===== Lista de movimientos (monto y fecha separados) ===== */
 .list{ display:flex; flex-direction:column; gap:10px; }
 
 .item{
   display:grid;
-  grid-template-columns: 1fr 120px 110px 120px;
-  gap:10px; align-items:center;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:10px 12px;
+  grid-template-columns: 1fr 110px 140px 120px 180px; /* info | tipo | monto | fecha | acciones */
+  align-items:center; gap:12px;
   background: var(--surface);
+  border:1px solid var(--borde);
+  border-radius:14px; padding:12px 14px;
+  position: relative;
+}
+.item::after{
+  /* mini acento vertical rojo respirando River */
+  content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+  background: linear-gradient(180deg, var(--rojo), var(--rojo-osc));
+  border-radius:14px 0 0 14px; opacity:.9;
 }
 
-.item .tipo{ font-size:.85rem; padding:4px 8px; border-radius:999px; text-align:center; }
+.item-info .item-title{ font-weight:800; }
+.item-info .item-sub{ color:var(--muted); font-size:.9rem; }
+
+.item .tipo{
+  font-size:.85rem; padding:6px 12px; border-radius:999px; text-align:center; font-weight:800;
+  border:1px solid;
+}
 .item .tipo.ingreso{
-  background: color-mix(in oklab, var(--ok) 20%, transparent);
-  color: color-mix(in oklab, var(--ok) 80%, #fff);
-  border:1px solid color-mix(in oklab, var(--ok) 50%, transparent);
+  background: color-mix(in oklab, var(--ok) 18%, transparent);
+  color: color-mix(in oklab, var(--ok) 85%, #fff);
+  border-color: color-mix(in oklab, var(--ok) 45%, transparent);
 }
 .item .tipo.gasto{
-  background: color-mix(in oklab, var(--danger) 20%, transparent);
-  color: color-mix(in oklab, var(--danger) 80%, #fff);
-  border:1px solid color-mix(in oklab, var(--danger) 50%, transparent);
+  background: color-mix(in oklab, var(--danger) 18%, transparent);
+  color: color-mix(in oklab, var(--danger) 90%, #fff);
+  border-color: color-mix(in oklab, var(--danger) 45%, transparent);
 }
 
-.row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.item-monto{
+  text-align:right; font-variant-numeric: tabular-nums; font-weight:900;
+}
+.item-fecha{
+  text-align:center; color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.item-actions{ display:flex; gap:10px; justify-content:flex-end; }
 
-/* BOTONES */
-.btn{
-  appearance:none;
-  border:1px solid var(--border);
-  background: var(--surface);
-  color: var(--text);
-  border-radius:10px; padding:8px 12px; cursor:pointer;
-}
-.btn.primary{
-  border-color: color-mix(in oklab, var(--primary) 50%, var(--border));
-  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
-}
-.btn.warning{
-  border-color: color-mix(in oklab, var(--danger) 50%, var(--border));
-  background: color-mix(in oklab, var(--danger) 10%, var(--surface));
-}
-.btn.ghost{ background:transparent; }
-.btn:disabled{ opacity:.6; cursor:not-allowed; }
+/* ===== Formularios (Formik) ===== */
+form.card h2{ margin:0 0 6px 0; }
+form.card label{ display:block; font-weight:700; margin-bottom:6px; }
+form.card .btn{ width:100%; }
+form.card .helper{ margin-top:6px; }
 
-.helper{ color:var(--muted); font-size:.92rem; }
+/* ===== Separadores/Detalles “River” ===== */
+.separator{
+  height:2px; border:none;
+  background: linear-gradient(90deg, transparent, var(--rojo), transparent);
+  margin: 8px 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  .item{
+    grid-template-columns: 1fr 110px 120px;
+    grid-template-areas:
+      "info  tipo  monto"
+      "info  fecha acciones";
+    align-items:start;
+  }
+  .item-info{ grid-area: info; }
+  .item .tipo{ grid-area: tipo; justify-self:start; }
+  .item-monto{ grid-area: monto; }
+  .item-fecha{ grid-area: fecha; text-align:left; }
+  .item-actions{ grid-area: acciones; justify-content:flex-start; }
+}
+@media (max-width: 560px){
+  .item{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "info"
+      "tipo"
+      "monto"
+      "fecha"
+      "acciones";
+  }
+  .item-monto, .item-fecha{ text-align:left; }
+}
+
+/* ===== Focus visible ===== */
+:focus-visible{
+  outline: 2px solid color-mix(in oklab, var(--rojo) 60%, transparent);
+  outline-offset: 2px;
+}
